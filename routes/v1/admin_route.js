@@ -3,7 +3,7 @@ module.exports = {
   configure: function (app, ensureAuthorized, db) {
     var admin_module = require("../../modules/v1/admin_module")(db);
 
-    app.post("/v1/add_question", ensureAuthorized, function (req, res) {
+    app.post("/add_question", ensureAuthorized, function (req, res) {
       try {
         if (
           req.body.hasOwnProperty("question")
@@ -45,7 +45,7 @@ module.exports = {
       }
     });
 
-    app.post("/v1/add_data", ensureAuthorized, function (req, res) {
+    app.post("/add_data", ensureAuthorized, function (req, res) {
       try {
         axios.get('https://api.stackexchange.com/2.2/search/advanced?page=18&pagesize=20&order=desc&sort=activity&site=stackoverflow')
           .then((response) => {
@@ -68,7 +68,7 @@ module.exports = {
       }
     });
 
-    app.get("/v1/get_data", ensureAuthorized, function (req, res) {
+    app.get("/get_data", ensureAuthorized, function (req, res) {
       try {
         admin_module.get_data(function (result, error, message) {
           if (error) {
@@ -87,7 +87,7 @@ module.exports = {
       }
     });
 
-    app.get("/v1/get_data/:id", ensureAuthorized, function (req, res) {
+    app.get("/get_data/:id", ensureAuthorized, function (req, res) {
       try {
         admin_module.get_selected_data(req.params.id, function (result, error, message) {
           if (error) {
@@ -106,7 +106,7 @@ module.exports = {
       }
     });
 
-    app.delete("/v1/delete_data/:id", ensureAuthorized, function (req, res) {
+    app.delete("/delete_data/:id", ensureAuthorized, function (req, res) {
       try {
         admin_module.delete_selected_data(req.params.id, function (result, error, message) {
           if (error) {
@@ -124,7 +124,7 @@ module.exports = {
       }
     });
 
-    app.patch("/v1/update_data/:id", ensureAuthorized, function (req, res) {
+    app.patch("/update_data/:id", ensureAuthorized, function (req, res) {
       try {
         admin_module.update_selected_data(req.params.id, req.body.question, function (result, error, message) {
           if (error) {
@@ -141,7 +141,5 @@ module.exports = {
         res.json({ status: false, message: "failed at try" });
       }
     });
-
-    //End of Logout
   },
 };
