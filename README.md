@@ -1,4 +1,4 @@
-#NEXT-STACKS
+
 
 Steps to run the application:
 1. clone

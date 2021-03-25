@@ -18,7 +18,6 @@ var request = require('request');
 //ROUTES
 
 var adminroute = require('./routes/v1/admin_route');
-var gmail = require('./config/gmail_config');
 var dbb = require('./config/collections');
 
 //Configuring Port
@@ -28,7 +27,7 @@ app.use(bodyParser.json({ limit: '50mb', extended: true }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 app.get('/', function (req, res) {
-    res.send("WELCOME TO JUICED API'S");
+    res.send("WELCOME TO DEMO API");
 });
 
 
@@ -62,46 +61,6 @@ mongo.connect(url, { useNewUrlParser: true }, function (err, database) {
         }
     }
 
-    // node scheduler
-
-    // var nodeScheduler = schedule.scheduleJob('10 * * * * *', function(){
-    //     request.post(
-    //         'http://localhost:8008/v1/check_license',
-    //         { json: {} },
-    //         function (error, response, body) {
-    //             if (!error && response.statusCode == 200) {
-    //                 console.log(body);
-    //             }
-    //         }
-    //     );
-    //     request.post(
-    //         'http://localhost:8008/v1/expire_license',
-    //         { json: {} },
-    //         function (error, response, body) {
-    //             if (!error && response.statusCode == 200) {
-    //                 console.log(body);
-    //             }
-    //         }
-    //     );
-    //     request.post(
-    //         'http://localhost:8008/v1/check_license_mp',
-    //         { json: {} },
-    //         function (error, response, body) {
-    //             if (!error && response.statusCode == 200) {
-    //                 console.log(body);
-    //             }
-    //         }
-    //     );
-    //     request.post(
-    //         'http://localhost:8008/v1/expire_license_mp',
-    //         { json: {} },
-    //         function (error, response, body) {
-    //             if (!error && response.statusCode == 200) {
-    //                 console.log(body);
-    //             }
-    //         }
-    //     );
-    //   });
 
     //Configuring Routes
     adminroute.configure(app, ensureAuthorized, db);
@@ -109,9 +68,7 @@ mongo.connect(url, { useNewUrlParser: true }, function (err, database) {
         console.log('Node app is running on port', app.get('port'));
     });
 })
-app.get('/v1/test', function (req, res) {
-    res.send("WELCOME TO v1 test 01");
-});
+
 
 
 module.exports = server
