@@ -3,7 +3,7 @@ module.exports = {
   configure: function (app, ensureAuthorized, db) {
     var admin_module = require("../../modules/v1/admin_module")(db);
 
-    app.post("/add_question", ensureAuthorized, function (req, res) {
+    app.post("/question", ensureAuthorized, function (req, res) {
       try {
         if (
           req.body.hasOwnProperty("question")
@@ -68,7 +68,7 @@ module.exports = {
       }
     });
 
-    app.get("/get_data", ensureAuthorized, function (req, res) {
+    app.get("/question", ensureAuthorized, function (req, res) {
       try {
         admin_module.get_data(function (result, error, message) {
           if (error) {
@@ -87,7 +87,7 @@ module.exports = {
       }
     });
 
-    app.get("/get_data/:id", ensureAuthorized, function (req, res) {
+    app.get("/question/:id", ensureAuthorized, function (req, res) {
       try {
         admin_module.get_selected_data(req.params.id, function (result, error, message) {
           if (error) {
@@ -106,7 +106,7 @@ module.exports = {
       }
     });
 
-    app.delete("/delete_data/:id", ensureAuthorized, function (req, res) {
+    app.delete("/question/:id", ensureAuthorized, function (req, res) {
       try {
         admin_module.delete_selected_data(req.params.id, function (result, error, message) {
           if (error) {
@@ -124,7 +124,7 @@ module.exports = {
       }
     });
 
-    app.patch("/update_data/:id", ensureAuthorized, function (req, res) {
+    app.patch("/question/:id", ensureAuthorized, function (req, res) {
       try {
         admin_module.update_selected_data(req.params.id, req.body.question, function (result, error, message) {
           if (error) {
